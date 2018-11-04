@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<configuration debug="false" scan="false" scanPeriod="10 seconds">
+
+    <property name="LOG_ROOT" value="${log.root:-D:/log}"/>
+    <property name="LOG_FILENAME" value="java"/>
+    <property name="LOG_MAXFILESIZE" value="500MB"/>
+    <property name="LOG_PATTERN" value="%date{ISO8601} %-5level [%thread] - %msg%n"/>
+
+    <appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+        </encoder>
+    </appender>
+
+    <appender name="RFA" class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <file>${LOG_ROOT}/${LOG_FILENAME}.log</file>
+
+        <!-- 开启压缩 -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <fileNamePattern>${LOG_ROOT}/${LOG_FILENAME}-%d{yyyyMMdd}-%i.gz</fileNamePattern>
+            <timeBasedFileNamingAndTriggeringPolicy class="ch.qos.logback.core.rolling.SizeAndTimeBasedFNATP">
+                <maxFileSize>${LOG_MAXFILESIZE}</maxFileSize>
+            </timeBasedFileNamingAndTriggeringPolicy>
+        </rollingPolicy>
+
+        <encoder>
+            <pattern>${LOG_PATTERN}</pattern>
+            <charset>utf-8</charset>
+        </encoder>
+    </appender>
+
+
+    <logger name="org.springframework" level="INFO"/>
+    <logger name="com.softtek.*" level="INFO"/>
+
+    <root level="DEBUG">
+        <appender-ref ref="stdout"/>
+        <!--<appender-ref ref="RFA"/>-->
+    </root>
+
+</configuration>
