@@ -10,8 +10,10 @@
     <version>1.0-SNAPSHOT</version>
     <modules>
         <module>apiserver</module>
-        <module>eurekaserver</module>
+        <module>user-service</module>
         <module>app-server</module>
+        <module>eureka-server</module>
+        <module>store-service</module>
     </modules>
 
 
